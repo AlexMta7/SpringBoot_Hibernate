@@ -30,8 +30,9 @@ async function registrarUsuario(){
   const respuesta = await request.text();
   if (respuesta == 'OK'){
           window.location.href = 'usuarios.html';
+          alert("Usuario ingresado correctamente");
         } else{
-          alert("Usuario Existente");
+          alert("Usuario ya existe");
         }
 }
 
