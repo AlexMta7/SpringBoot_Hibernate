@@ -52,4 +52,13 @@ public class UsuarioDaoImp implements UsuarioDao{
         */
         return !lista.isEmpty();
     }
+
+    @Override
+    public boolean verificarUsuario(Usuario usuario) {
+        String query = "FROM Usuario WHERE email = :email ";
+        List<Usuario> lista = entityManager.createQuery(query)
+                .setParameter("email", usuario.getEmail())
+                .getResultList();
+        return !lista.isEmpty();
+    }
 }
