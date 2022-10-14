@@ -19,7 +19,10 @@
         body: JSON.stringify(datos)
       });
       const respuesta = await request.text();
-      if (respuesta == 'OK'){
+      if (respuesta != 'FAIL'){
+      //Saves info into the browser
+      localStorage.token = respuesta;
+      localStorage.email = datos.email;
         window.location.href = 'usuarios.html';
       } else{
         alert("Credenciales incorrectas");
