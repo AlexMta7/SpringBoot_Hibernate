@@ -3,7 +3,13 @@ $(document).ready(function() {
     //Al iniciar la pagina llama al metodo
    cargarUsuarios()
   $('#usuarios').DataTable();
+
+  actualizarEmailUsuario()
 });
+
+function actualizarEmailUsuario(){
+    document.getElementById('txt-mail-usuario').outerHTML = localStorage.email;
+}
 
 async function cargarUsuarios(){
 
