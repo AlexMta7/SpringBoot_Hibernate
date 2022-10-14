@@ -44,15 +44,15 @@ public class UsuarioDaoImp implements UsuarioDao{
                 .setParameter("email", usuario.getEmail())
                 .getResultList();
 
+        if(lista.isEmpty()){
+            return null;
+        }
+
         //Gets the password
         String hashedPassword = lista.get(0).getPassword();
 
         //TO VERIFY THE PASSWORD
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-
-        if(lista.isEmpty()){
-            return null;
-        }
 
         //Compares a Hash with a password. returns a boolean
         if(argon2.verify(hashedPassword, usuario.getPassword())){
