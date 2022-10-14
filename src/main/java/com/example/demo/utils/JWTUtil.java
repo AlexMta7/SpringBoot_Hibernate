@@ -17,7 +17,7 @@ import java.util.Date;
 /**
  * @author Mahesh
  */
-@Component
+@Component //Notación para poder compartirlo en todos los lugares
 public class JWTUtil {
     @Value("${security.jwt.secret}")
     private String key;
