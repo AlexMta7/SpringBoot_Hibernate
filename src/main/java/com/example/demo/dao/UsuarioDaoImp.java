@@ -38,6 +38,31 @@ public class UsuarioDaoImp implements UsuarioDao{
     }
 
     @Override
+    public Usuario obtenerUsuarioPorCredenciales(Usuario usuario){
+        String query = "FROM Usuario WHERE email = :email";
+        List<Usuario> lista = entityManager.createQuery(query)
+                .setParameter("email", usuario.getEmail())
+                .getResultList();
+
+        //Gets the password
+        String hashedPassword = lista.get(0).getPassword();
+
+        //TO VERIFY THE PASSWORD
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+
+        if(lista.isEmpty()){
+            return null;
+        }
+
+        //Compares a Hash with a password. returns a boolean
+        if(argon2.verify(hashedPassword, usuario.getPassword())){
+            return lista.get(0);
+        }
+        return null;
+    }
+
+    /*
+    @Override
     public boolean verificarCredenciales(Usuario usuario){
         String query = "FROM Usuario WHERE email = :email";
         List<Usuario> lista = entityManager.createQuery(query)
@@ -49,7 +74,7 @@ public class UsuarioDaoImp implements UsuarioDao{
 
         //TO VERIFY THE PASSWORD
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        /*Compares a Hash with a password. returns a boolean*/
+        /*Compares a Hash with a password. returns a boolean
         //Para guardar en una variable
         //boolean passwordEsLaMisma = argon2.verify(hashedPassword, usuario.getPassword());
 
@@ -75,9 +100,8 @@ public class UsuarioDaoImp implements UsuarioDao{
         else{
             return true;
         }
-        */
-    }
 
+    } */
     @Override
     public boolean verificarUsuario(Usuario usuario) {
         String query = "FROM Usuario WHERE email = :email ";
